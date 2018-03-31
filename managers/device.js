@@ -150,6 +150,7 @@ exports.delete = function (topic, user_id, callback) {
       let response = {
         success: true
         , message: error.message
+        , code: 500
       }
       callback(response)
       return
@@ -157,6 +158,7 @@ exports.delete = function (topic, user_id, callback) {
     let response = {
       success: true
       , message: 'Dispositivo deletado com sucesso'
+      , code: 200
     }
     callback(response)
   })
