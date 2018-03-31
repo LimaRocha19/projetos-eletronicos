@@ -4,6 +4,8 @@ var subdomain = require('express-subdomain')
 var mqtt = require('mqtt')
 var app = express()
 
+var port = process.env.PORT || 80
+
 // mark - express-session / uuid
 var session = require('express-session')
 var uuid = require('uuid')
@@ -153,9 +155,9 @@ app.get('/', function (req, res) {
 //   console.log('Message received: ' + msg['message'])
 // })
 
-app.listen(5000)
+app.listen(port)
 console.log({
-  port: 5000
+  port: port
   , message: 'Servidor de Projetos Eletrônicos I está funcionando'
   , success: true
 })
