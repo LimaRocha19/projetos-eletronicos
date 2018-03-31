@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 
 var device_schema = new Schema({
   name: String // exemplo: Televisão da Sala
-  , topic: String
+  , topic: {
+    type: String
+    , unique: true
+  }
   , closed: { // status do chaveamento do dispositivo
     type: Boolean
     , default: false
@@ -21,6 +24,7 @@ var device_schema = new Schema({
     , default: 20*60 // 20 minutos, mas deve ser colocado em segundos
   }
   , owner: String
+  , last_updated: Date
 });
 
 module.exports = mongoose.model('Device', device_schema);

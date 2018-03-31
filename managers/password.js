@@ -164,7 +164,7 @@ exports.forgot = function(body, callback) {
 
 			// send the message and get a callback with an error or details of the message that was sent
 			server.send({
-				text:				"Para alterar sua senha, clique no link: http://localhost:5000/web/user/reset?"+
+				text:				"Para alterar sua senha, clique no link: https://projetos-eletronicos.herokuapp.com/web/user/reset?"+
 										"email="+ user.email +
 										"&reset_id="+ user.reset_id
 				, from:			"isaiahlima18@gmail.com"
@@ -181,6 +181,10 @@ exports.forgot = function(body, callback) {
 					callback(response);
 					return;
 				}
+
+				user.password = null
+				user.reset_id = null
+
 				var response = {
 					success: true
 					, message: message.text

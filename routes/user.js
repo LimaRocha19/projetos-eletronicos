@@ -122,4 +122,11 @@ router.get('/profile', function(req, res) {
   res.status(200).json(resp)
 })
 
+router.post('/password_reset', function (req, res) {
+  // user email
+  manager.password.forgot(req.body, function (response) {
+    res.status(response.code).json(response)
+  })
+});
+
 module.exports = router

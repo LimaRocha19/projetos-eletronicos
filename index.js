@@ -1,7 +1,7 @@
 // mark - express
 var express = require('express')
 var subdomain = require('express-subdomain')
-var mqtt = require('mqtt');
+var mqtt = require('mqtt')
 var app = express()
 
 // mark - express-session / uuid
@@ -64,6 +64,9 @@ app.use('/web', web_route)
 var user_route = require('./routes/user')
 app.use('/user', user_route)
 
+var device_route = require('./routes/device')
+app.use('/device', device_route)
+
 // mark: WELCOME MESSAGE FOR EVERYONE WHO'S TRYING TO GET TO THIS BEAUTIFULL SERVER MADE BY US
 
 app.get('/', function (req, res) {
@@ -77,77 +80,78 @@ app.get('/', function (req, res) {
 
 // mark: test mqtt publish route
 
-var mqtt_url = 'mqtt://ryrnnwvc:q4JBhYKmD1FO@m10.cloudmqtt.com:17269';
-var client = mqtt.connect(mqtt_url);
-
-client.on('connect', function () {
-
-  console.log('Connected to: ' + mqtt_url)
-
-  app.post('/publish/:message', function (req, res) {
-    let msg = JSON.stringify({
-      date: new Date().toString
-      , message: req.params['message']
-    })
-    client.subscribe('node-tests')
-    client.publish('node-tests', msg)
-    res.json({
-      topic: 'node-tests'
-      , message: req.params['message']
-      , success: true
-    })
-  })
-})
-
-client.on('reconnect', function () {
-
-  console.log('Reconnected to: ' + mqtt_url)
-
-  app.post('/publish/:message', function (req, res) {
-    let msg = JSON.stringify({
-      date: new Date().toString
-      , message: req.params['message']
-    })
-    client.subscribe('node-tests')
-    client.publish('node-tests', msg)
-    res.json({
-      topic: 'node-tests'
-      , message: req.params['message']
-      , success: true
-    })
-  })
-})
-
-client.on('close', function () {
-
-  console.log('Closed to: ' + mqtt_url)
-
-  app.post('/publish/:message', function (req, res) {
-    res.json({
-      topic: 'node-tests'
-      , message: 'connection closed'
-      , success: false
-    })
-  })
-})
-
-client.on('offline', function () {
-
-  console.log('Offline to: ' + mqtt_url)
-
-  app.post('/publish/:message', function (req, res) {
-    res.json({
-      topic: 'node-tests'
-      , message: 'econnection offline'
-      , success: false
-    })
-  })
-})
-
-client.on('message', function (topic, message) {
-  // message is Buffer
-  console.log('Message received: ' + message.toString())
-})
+// var mqtt_url = 'mqtt://ryrnnwvc:q4JBhYKmD1FO@m10.cloudmqtt.com:17269'
+// var client = mqtt.connect(mqtt_url)
+//
+// client.on('connect', function () {
+//
+//   console.log('Connected to: ' + mqtt_url)
+//
+//   app.post('/publish/:message', function (req, res) {
+//     let msg = JSON.stringify({
+//       date: new Date().toString
+//       , message: req.params['message']
+//     })
+//     client.subscribe('node-tests')
+//     client.publish('node-tests', msg)
+//     res.json({
+//       topic: 'node-tests'
+//       , message: req.params['message']
+//       , success: true
+//     })
+//   })
+// })
+//
+// client.on('reconnect', function () {
+//
+//   console.log('Reconnected to: ' + mqtt_url)
+//
+//   app.post('/publish/:message', function (req, res) {
+//     let msg = JSON.stringify({
+//       date: new Date().toString
+//       , message: req.params['message']
+//     })
+//     client.subscribe('node-tests')
+//     client.publish('node-tests', msg)
+//     res.json({
+//       topic: 'node-tests'
+//       , message: req.params['message']
+//       , success: true
+//     })
+//   })
+// })
+//
+// client.on('close', function () {
+//
+//   console.log('Closed to: ' + mqtt_url)
+//
+//   app.post('/publish/:message', function (req, res) {
+//     res.json({
+//       topic: 'node-tests'
+//       , message: 'connection closed'
+//       , success: false
+//     })
+//   })
+// })
+//
+// client.on('offline', function () {
+//
+//   console.log('Offline to: ' + mqtt_url)
+//
+//   app.post('/publish/:message', function (req, res) {
+//     res.json({
+//       topic: 'node-tests'
+//       , message: 'econnection offline'
+//       , success: false
+//     })
+//   })
+// })
+//
+// client.on('message', function (topic, message) {
+//   // message is Buffer
+//   let msg = JSON.parse(message.toString())
+//   console.log('Message received: ' + msg['message'])
+// })
 
 app.listen(5000)
 console.log({
