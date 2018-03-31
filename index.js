@@ -55,6 +55,15 @@ console.log(config.database)
 mongoose.connect(config.database)
 app.set('superSecret', config.secret)
 
+// mark: password recover
+app.set('views', __dirname + '/views')
+var web_route = require('./web/index')
+app.use('/web', web_route)
+
+// mark: USER ROUTES
+var user_route = require('./routes/user')
+app.use('/user', user_route)
+
 // mark: WELCOME MESSAGE FOR EVERYONE WHO'S TRYING TO GET TO THIS BEAUTIFULL SERVER MADE BY US
 
 app.get('/', function (req, res) {

@@ -1,0 +1,26 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var device_schema = new Schema({
+  name: String // exemplo: Televisão da Sala
+  , topic: String
+  , closed: { // status do chaveamento do dispositivo
+    type: Boolean
+    , default: false
+  }
+  , working: { // status do funcionamento do dispositivo em si
+    type: Boolean
+    , default: false
+  }
+  , onDelay: {
+    type: Number
+    , default: 5 // 5 segundos
+  }
+  , offDelay: {
+    type: Number
+    , default: 20*60 // 20 minutos, mas deve ser colocado em segundos
+  }
+  , owner: String
+});
+
+module.exports = mongoose.model('Device', device_schema);
