@@ -73,7 +73,7 @@ app.use('/device', device_route)
 
 app.get('/', function (req, res) {
   let welcome = {
-    port: 5000
+    port: port
     , message: 'Servidor de Projetos Eletrônicos I está funcionando'
     , success: true
   }
