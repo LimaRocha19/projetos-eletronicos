@@ -80,12 +80,12 @@ client.on('connect', function () {
       date: new Date().toString
       , message: req.params['message']
     })
-    client.publish('node-tests', msg, function () {
-      res.json({
-        topic: 'node-tests'
-        , message: req.params['message']
-        , success: true
-      })
+    client.subscribe('node-tests')
+    client.publish('node-tests', msg)
+    res.json({
+      topic: 'node-tests'
+      , message: req.params['message']
+      , success: true
     })
   })
 })
@@ -99,12 +99,12 @@ client.on('reconnect', function () {
       date: new Date().toString
       , message: req.params['message']
     })
-    client.publish('node-tests', msg, function () {
-      res.json({
-        topic: 'node-tests'
-        , message: req.params['message']
-        , success: true
-      })
+    client.subscribe('node-tests')
+    client.publish('node-tests', msg)
+    res.json({
+      topic: 'node-tests'
+      , message: req.params['message']
+      , success: true
     })
   })
 })
