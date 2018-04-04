@@ -60,9 +60,9 @@ exports.verify_ownership = function(topic, user_id, callback) {
     owner: user_id
   }, function(error, device) {
     if (error || !device || device == null || device == undefined) {
-      callback(false)
+      callback(false, null)
     } else {
-      callback(true)
+      callback(true, device)
     }
   })
 }

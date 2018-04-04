@@ -239,14 +239,13 @@ client.on('reconnect', function () {
     msg[key] = value
     let message = JSON.stringify(msg)
 
-    manager.verify_ownership(topic, user_id, function (ownership_valid) {
+    manager.verify_ownership(topic, user_id, function (ownership_valid, device) {
       if (!ownership_valid) {
-        let response = {
+        res.status(404).json({
           success: false
           , message: 'Este dispositivo não pertence à sua conta!'
-        }
-        callback(response)
-        return
+          , device: null
+        })
       } else {
         client.subscribe(topic + '_recv', { qos: 2 })
         client.publish(topic, message, { qos: 2 })
@@ -254,6 +253,7 @@ client.on('reconnect', function () {
         res.status(200).json({
           success: true
           , message: 'Published'
+          , device: device
         })
       }
     })
