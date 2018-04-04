@@ -4,7 +4,7 @@ var subdomain = require('express-subdomain')
 var mqtt = require('mqtt')
 var app = express()
 
-var port = process.env.PORT || 80
+var port = process.env.PORT || 5000
 
 // mark - express-session / uuid
 var session = require('express-session')
@@ -82,27 +82,27 @@ app.get('/', function (req, res) {
 
 // mark: test mqtt publish route
 
-// var mqtt_url = 'mqtt://ryrnnwvc:q4JBhYKmD1FO@m10.cloudmqtt.com:17269'
-// var client = mqtt.connect(mqtt_url)
-//
-// client.on('connect', function () {
-//
-//   console.log('Connected to: ' + mqtt_url)
-//
-//   app.post('/publish/:message', function (req, res) {
-//     let msg = JSON.stringify({
-//       date: new Date().toString
-//       , message: req.params['message']
-//     })
-//     client.subscribe('node-tests')
-//     client.publish('node-tests', msg)
-//     res.json({
-//       topic: 'node-tests'
-//       , message: req.params['message']
-//       , success: true
-//     })
-//   })
-// })
+var mqtt_url = 'mqtt://ryrnnwvc:q4JBhYKmD1FO@m10.cloudmqtt.com:17269'
+var client = mqtt.connect(mqtt_url)
+
+client.on('connect', function () {
+
+  console.log('Connected to: ' + mqtt_url)
+
+  app.get('/publish/:message', function (req, res) {
+    let msg = JSON.stringify({
+      date: new Date().toString
+      , message: req.params['message']
+    })
+    // client.subscribe('node-tests')
+    client.publish('node-tests', msg)
+    res.json({
+      topic: 'node-tests'
+      , message: req.params['message']
+      , success: true
+    })
+  })
+})
 //
 // client.on('reconnect', function () {
 //
