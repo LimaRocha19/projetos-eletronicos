@@ -152,11 +152,12 @@ client.on('connect', function () {
     msg[key] = value
     let message = JSON.stringify(msg)
 
-    manager.verify_ownership(topic, user_id, function (ownership_valid) {
+    manager.verify_ownership(topic, user_id, function (ownership_valid, device) {
       if (!ownership_valid) {
         let response = {
           success: false
           , message: 'Este dispositivo não pertence à sua conta!'
+          , device: null
         }
         callback(response)
         return
@@ -167,6 +168,7 @@ client.on('connect', function () {
         res.status(200).json({
           success: true
           , message: 'Published'
+          , device: device
         })
       }
     })
