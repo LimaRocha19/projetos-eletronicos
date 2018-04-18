@@ -90,12 +90,14 @@ client.on('connect', function () {
   console.log('Connected to: ' + mqtt_url)
 
   app.get('/publish/:message', function (req, res) {
-    let msg = JSON.stringify({
-      date: new Date().toString
-      , message: req.params['message']
-    })
-    // client.subscribe('node-tests')
-    client.publish('node-tests', msg)
+    // let msg = JSON.stringify({
+    //   date: new Date().toString
+    //   , message: req.params['message']
+    // })
+    let msg = req.params['message']
+    client.subscribe('node-pub')
+    client.subscribe('node-tests')
+    client.publish('esp8266/node-tests', msg)
     res.json({
       topic: 'node-tests'
       , message: req.params['message']
@@ -149,11 +151,12 @@ client.on('connect', function () {
 //   })
 // })
 //
-// client.on('message', function (topic, message) {
-//   // message is Buffer
-//   let msg = JSON.parse(message.toString())
-//   console.log('Message received: ' + msg['message'])
-// })
+client.on('message', function (topic, message) {
+  // message is Buffer
+  // let msg = JSON.parse(message.toString())
+  // console.log('Message received: ' + msg['message'])
+  console.log(message.toString())
+})
 
 app.listen(port)
 console.log({

@@ -163,7 +163,7 @@ client.on('connect', function () {
         return
       } else {
         client.subscribe(topic + '_recv', { qos: 2 })
-        client.publish(topic, message, { qos: 2 })
+        client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
         res.status(200).json({
           success: true
@@ -250,7 +250,7 @@ client.on('reconnect', function () {
         })
       } else {
         client.subscribe(topic + '_recv', { qos: 2 })
-        client.publish(topic, message, { qos: 2 })
+        client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
         res.status(200).json({
           success: true
