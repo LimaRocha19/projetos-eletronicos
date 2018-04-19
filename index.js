@@ -3,6 +3,8 @@ var express = require('express')
 var subdomain = require('express-subdomain')
 var mqtt = require('mqtt')
 var app = express()
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
 
 var port = process.env.PORT || 5000
 
@@ -29,7 +31,7 @@ app.set('subdomain offset', 3)
 
 app.use(session({
   genid: function (req) {
-    return uuid.v1();
+    return uuid.v1()
   }
   , secret: 'lumamiruvisado'
   , resave: false
@@ -158,7 +160,24 @@ client.on('message', function (topic, message) {
   console.log(message.toString())
 })
 
-app.listen(port)
+io.on('connection', function (client) {
+    console.log(client.id + 'user connected')
+
+    client.on("join", function(name) {
+      console.log(name, client.id + 'user connected')
+    })
+
+    client.on("send", function(msg) {
+      console.log("Message: " + msg)
+      client.emit("chat", clients[client.id], msg)
+    })
+
+    client.on("disconnect", function() {
+      console.log("Disconnect")
+    })
+})
+
+http.listen(port)
 console.log({
   port: port
   , message: 'Servidor de Projetos Eletrônicos I está funcionando'
