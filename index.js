@@ -169,7 +169,7 @@ io.on('connection', function (client) {
 
     client.on("send", function(msg) {
       console.log("Message: " + msg)
-      client.emit("chat", client.id, msg)
+      client.emit("chat", client.id + msg + ' sending...')
     })
 
     client.on("disconnect", function() {
