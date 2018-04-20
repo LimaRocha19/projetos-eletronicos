@@ -170,15 +170,18 @@ io.on('connection', function (client) {
 
       // device_data should contain the user's VALID token, the user's id and the device's id
       if (!device_data.token || !device_data.user_id || !device_data.device_id) {
+        console.log('Dados inválidos!!!')
         return
       }
       let verify = token.verify(device_data.token)
       if (!verify) {
+        console.log('Token inválido!!!')
         return
       }
 
       dev_manager.device(device_data.user_id, device_data.device_id, function (dev) {
         if (dev == null) {
+          console.log('Dados nulos!!!')
           return
         } else {
           client.emit("device", dev)
