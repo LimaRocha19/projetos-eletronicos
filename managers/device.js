@@ -185,3 +185,16 @@ exports.user_devices = function (user_id, callback) {
     }
   })
 }
+
+exports.device = function (user_id, device_id, callback) {
+  Device.findOne({
+    topic: device_id
+    , owner: user_id
+  }, function (error, dev) {
+    if (error || !dev || dev == null || dev == undefined) {
+      callback(dev)
+    } else {
+      callback(null)
+    }
+  })
+}

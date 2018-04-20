@@ -160,16 +160,30 @@ client.on('message', function (topic, message) {
   console.log(message.toString())
 })
 
+var dev_manager = require('./managers/device')
+var token = require('./security/token')
+
 io.on('connection', function (client) {
     console.log(client.id + 'user connected')
 
-    client.on("join", function(name) {
-      console.log(name, client.id + 'user connected')
-    })
+    client.on("consult", function(device_data) {
 
-    client.on("send", function(msg) {
-      console.log("Message: " + msg)
-      client.emit("chat", client.id + msg + ' sending...')
+      // device_data should contain the user's VALID token, the user's id and the device's id
+      if (!device_data.token || !device_data.user_id || !device_data.device_id) {
+        return
+      }
+      let verify = token.verify(device_data.token)
+      if (!verify) {
+        return
+      }
+
+      dev_manager.device(device_data.user_id, device_id.device_id, function (dev) {
+        if (dev == null) {
+          return
+        } else {
+          client.emit("device", dev)
+        }
+      })
     })
 
     client.on("disconnect", function() {

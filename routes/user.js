@@ -50,6 +50,9 @@ router.post('/signup', function(req, res) {
       session.cookie.maxAge = 365 * 24 * 3600000
       session.token = token.generate(response.user)
       session.user = response.user
+      response.token = session.token
+    } else {
+      response.token = null
     }
     res.status(response.code).json(response)
   })
@@ -84,6 +87,9 @@ router.post('/signin', function(req, res) {
       session.cookie.maxAge = 365 * 24 * 3600000
       session.token = token.generate(response.user)
       session.user = response.user
+      response.token = session.token
+    } else {
+      response.token = null
     }
     res.status(response.code).json(response)
   })
