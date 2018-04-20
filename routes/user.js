@@ -122,7 +122,8 @@ router.get('/profile', function(req, res) {
   let resp = {
     success: true,
     message: 'Perfil de usuário logado encontrado.',
-    user: user
+    user: user,
+    token: session.token
   }
 
   res.status(200).json(resp)
