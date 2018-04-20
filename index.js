@@ -177,7 +177,7 @@ io.on('connection', function (client) {
         return
       }
 
-      dev_manager.device(device_data.user_id, device_id.device_id, function (dev) {
+      dev_manager.device(device_data.user_id, device_data.device_id, function (dev) {
         if (dev == null) {
           return
         } else {
