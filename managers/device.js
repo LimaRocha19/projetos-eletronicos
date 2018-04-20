@@ -192,9 +192,9 @@ exports.device = function (user_id, device_id, callback) {
     , owner: user_id
   }, function (error, dev) {
     if (error || !dev || dev == null || dev == undefined) {
-      callback(dev)
-    } else {
       callback(null)
+    } else {
+      callback(dev)
     }
   })
 }
