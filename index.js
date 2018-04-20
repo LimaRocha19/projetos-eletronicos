@@ -168,6 +168,8 @@ io.on('connection', function (client) {
 
     client.on("consult", function(device_data) {
 
+      console.log(device_data)
+
       // device_data should contain the user's VALID token, the user's id and the device's id
       if (!device_data.token || !device_data.user_id || !device_data.device_id) {
         console.log('Dados inválidos!!!')
