@@ -381,21 +381,24 @@ client.on('offline', function () {
 })
 
 client.on('message', function (topic, message) {
-  let msg = JSON.parse(message.toString())
-  console.log(message.toString(), msg)
 
-  /*
-   * {
-   *  "onDelay": 10
-   *  "offDelay": 2000
-   *  "closed": true
-   *  "working": true
-   * }
-   */
+  try {
+    let msg = JSON.parse(message.toString())
+    console.log(message.toString(), msg)
 
-   manager.update(msg, topic.replace('_recv',''), function (response) {
-     console.log(response)
-   })
+    /*
+     * {
+     *  "onDelay": 10
+     *  "offDelay": 2000
+     *  "closed": true
+     *  "working": true
+     * }
+     */
+
+     manager.update(msg, topic.replace('_recv',''), function (response) {
+       console.log(response)
+     })
+  } catch (e) {}
 })
 
 module.exports = router

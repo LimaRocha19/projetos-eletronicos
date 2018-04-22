@@ -74,6 +74,13 @@ app.use('/device', device_route)
 // mark: WELCOME MESSAGE FOR EVERYONE WHO'S TRYING TO GET TO THIS BEAUTIFULL SERVER MADE BY US
 
 app.get('/', function (req, res) {
+
+  var msg = null
+
+  try {
+      msg = JSON.parse('caquinho')
+  } catch (e) {}
+
   let welcome = {
     port: port
     , message: 'Servidor de Projetos Eletrônicos I está funcionando'
