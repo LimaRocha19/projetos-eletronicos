@@ -148,10 +148,6 @@ client.on('connect', function () {
     let value = req.params['value']
     let user_id = user._id
 
-    var msg = {}
-    msg[key] = value
-    let message = JSON.stringify(msg)
-
     manager.verify_ownership(topic, user_id, function (ownership_valid, device) {
       if (!ownership_valid) {
         let response = {
@@ -162,6 +158,8 @@ client.on('connect', function () {
         callback(response)
         return
       } else {
+        device[key] = value
+        let message = JSON.stringify(device)
         client.subscribe(topic + '_recv', { qos: 2 })
         client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
@@ -237,10 +235,6 @@ client.on('reconnect', function () {
     let value = req.params['value']
     let user_id = user._id
 
-    var msg = {}
-    msg[key] = value
-    let message = JSON.stringify(msg)
-
     manager.verify_ownership(topic, user_id, function (ownership_valid, device) {
       if (!ownership_valid) {
         res.status(404).json({
@@ -249,6 +243,8 @@ client.on('reconnect', function () {
           , device: null
         })
       } else {
+        device[key] = value
+        let message = JSON.stringify(device)
         client.subscribe(topic + '_recv', { qos: 2 })
         client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
