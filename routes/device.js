@@ -158,8 +158,11 @@ client.on('connect', function () {
         callback(response)
         return
       } else {
+        var msg = {}
         device[key] = value
-        let message = JSON.stringify(device)
+        msg['closed'] = device['closed']
+        msg['offDelay'] = device['offDelay']
+        let message = JSON.stringify(msg)
         client.subscribe(topic + '_recv', { qos: 2 })
         client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
@@ -243,8 +246,11 @@ client.on('reconnect', function () {
           , device: null
         })
       } else {
+        var msg = {}
         device[key] = value
-        let message = JSON.stringify(device)
+        msg['closed'] = device['closed']
+        msg['offDelay'] = device['offDelay']
+        let message = JSON.stringify(msg)
         client.subscribe(topic + '_recv', { qos: 2 })
         client.publish('esp8266/' + topic, message, { qos: 2 })
         console.log(topic, message)
