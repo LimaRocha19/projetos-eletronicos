@@ -130,6 +130,8 @@ exports.update = function(body, topic, callback) {
           return
         }
 
+        console.log('atualizado', device)
+
         let response = {
           success: true
           , message: 'Dispositivo atualizado com sucesso'
