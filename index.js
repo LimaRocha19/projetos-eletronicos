@@ -104,9 +104,8 @@ client.on('connect', function () {
     //   , message: req.params['message']
     // })
     let msg = req.params['message']
-    client.subscribe('node-pub')
-    client.subscribe('node-tests')
-    client.publish('esp8266/node-tests', msg)
+    client.subscribe('node-tests_recv')
+    client.publish('node-tests_recv', msg)
     res.json({
       topic: 'node-tests'
       , message: req.params['message']
@@ -164,7 +163,11 @@ client.on('message', function (topic, message) {
   // message is Buffer
   // let msg = JSON.parse(message.toString())
   // console.log('Message received: ' + msg['message'])
-  console.log(message.toString())
+  console.log(topic, message.toString())
+
+  try {
+    console.log(JSON.parse(message.toString()))
+  } catch (e) {}
 })
 
 var dev_manager = require('./managers/device')
