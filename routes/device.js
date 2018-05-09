@@ -378,6 +378,8 @@ client.on('offline', function () {
 
 client.on('message', function (topic, message) {
 
+  console.log(message.toString(), msg)
+
   try {
     let msg = JSON.parse(message.toString())
     console.log(message.toString(), msg)
