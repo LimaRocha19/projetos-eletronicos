@@ -83,7 +83,7 @@ router.get('/devices', function (req, res) {
 
   manager.user_devices(user_id, function (response) {
     for (var d in response.devices) {
-      client.subscribe('' + d.topic + '_recv')
+      client.subscribe('' + d.topic + '_recv', { qos: 2 })
     }
     res.status(200).json(response)
   })
