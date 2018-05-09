@@ -86,6 +86,7 @@ client.on('connect', function () {
     manager.user_devices(user_id, function (response) {
       for (var d in response.devices) {
         client.subscribe('' + d.topic + '_recv', { qos: 2 })
+        client.publish('' + d.topic + '_recv', 'working')
       }
       res.status(200).json(response)
     })
