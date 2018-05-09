@@ -104,19 +104,19 @@ exports.update = function(body, topic, callback) {
         return
       }
 
-      if (params || params.closed != null || params.closed != undefined) {
+      if (params && params.closed != null && params.closed != undefined) {
         console.log('closed', device)
         device.closed = params.closed
       }
-      if (params || params.onDelay != null || params.onDelay != undefined) {
+      if (params && params.onDelay != null && params.onDelay != undefined) {
         console.log('onDelay', device)
         device.onDelay = params.onDelay
       }
-      if (params || params.offDelay != null || params.offDelay != undefined) {
+      if (params && params.offDelay != null && params.offDelay != undefined) {
         console.log('offDelay', device)
         device.offDelay = params.offDelay
       }
-      if (params || params.working != null || params.working != undefined) {
+      if (params && params.working != null && params.working != undefined) {
         console.log('working', device)
         device.working = params.working
       }

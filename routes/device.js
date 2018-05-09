@@ -55,41 +55,41 @@ router.post('/add', function (req, res) {
   })
 })
 
-router.get('/devices', function (req, res) {
-  var session = req.session
-  var user = session.user
-
-  if (!user || !session) {
-    var response = {
-      success: false,
-      message: 'Usuário não logado',
-      devices: []
-    }
-    res.status(401).json(response)
-    return
-  }
-  var verify = token.verify(session['token'])
-  if (!verify) {
-    var response = {
-      success: false,
-      message: 'Token de acesso expirado ou inexistente',
-      devices: []
-    }
-    res.status(401).json(response)
-    return
-  }
-
-  let user_id = user._id
-
-  manager.user_devices(user_id, function (response) {
-    for (var d in response.devices) {
-      client.subscribe('' + d.topic + '_recv', { qos: 2 })
-    }
-    res.status(200).json(response)
-  })
-})
-
 client.on('connect', function () {
+
+  router.get('/devices', function (req, res) {
+    var session = req.session
+    var user = session.user
+
+    if (!user || !session) {
+      var response = {
+        success: false,
+        message: 'Usuário não logado',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+    var verify = token.verify(session['token'])
+    if (!verify) {
+      var response = {
+        success: false,
+        message: 'Token de acesso expirado ou inexistente',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+
+    let user_id = user._id
+
+    manager.user_devices(user_id, function (response) {
+      for (var d in response.devices) {
+        client.subscribe('' + d.topic + '_recv', { qos: 2 })
+      }
+      res.status(200).json(response)
+    })
+  })
 
   router.delete('/delete', function (req, res) {
     var session = req.session
@@ -181,6 +181,40 @@ client.on('connect', function () {
 
 client.on('reconnect', function () {
 
+  router.get('/devices', function (req, res) {
+    var session = req.session
+    var user = session.user
+
+    if (!user || !session) {
+      var response = {
+        success: false,
+        message: 'Usuário não logado',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+    var verify = token.verify(session['token'])
+    if (!verify) {
+      var response = {
+        success: false,
+        message: 'Token de acesso expirado ou inexistente',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+
+    let user_id = user._id
+
+    manager.user_devices(user_id, function (response) {
+      for (var d in response.devices) {
+        client.subscribe('' + d.topic + '_recv', { qos: 2 })
+      }
+      res.status(200).json(response)
+    })
+  })
+
   router.delete('/delete', function (req, res) {
     var session = req.session
     var user = session.user
@@ -269,6 +303,40 @@ client.on('reconnect', function () {
 
 client.on('close', function () {
 
+  router.get('/devices', function (req, res) {
+    var session = req.session
+    var user = session.user
+
+    if (!user || !session) {
+      var response = {
+        success: false,
+        message: 'Usuário não logado',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+    var verify = token.verify(session['token'])
+    if (!verify) {
+      var response = {
+        success: false,
+        message: 'Token de acesso expirado ou inexistente',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+
+    let user_id = user._id
+
+    manager.user_devices(user_id, function (response) {
+      for (var d in response.devices) {
+        client.subscribe('' + d.topic + '_recv', { qos: 2 })
+      }
+      res.status(200).json(response)
+    })
+  })
+
   router.delete('/delete', function (req, res) {
     var session = req.session
     var user = session.user
@@ -327,6 +395,40 @@ client.on('close', function () {
 })
 
 client.on('offline', function () {
+
+  router.get('/devices', function (req, res) {
+    var session = req.session
+    var user = session.user
+
+    if (!user || !session) {
+      var response = {
+        success: false,
+        message: 'Usuário não logado',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+    var verify = token.verify(session['token'])
+    if (!verify) {
+      var response = {
+        success: false,
+        message: 'Token de acesso expirado ou inexistente',
+        devices: []
+      }
+      res.status(401).json(response)
+      return
+    }
+
+    let user_id = user._id
+
+    manager.user_devices(user_id, function (response) {
+      for (var d in response.devices) {
+        client.subscribe('' + d.topic + '_recv', { qos: 2 })
+      }
+      res.status(200).json(response)
+    })
+  })
 
   router.delete('/delete', function (req, res) {
     var session = req.session
