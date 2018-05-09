@@ -83,7 +83,7 @@ router.get('/devices', function (req, res) {
 
   manager.user_devices(user_id, function (response) {
     for (var d in response.devices) {
-      client.subscribe('esp8266/' + d.topic)
+      client.subscribe('' + d.topic + '_recv')
     }
     res.status(200).json(response)
   })
