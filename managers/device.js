@@ -71,7 +71,7 @@ exports.update = function(body, topic, callback) {
     var params = {
       closed: body['closed'],
       onDelay: body['onDelay'],
-      offDelay: body['offDelay'],
+      offDelay: body['offdelay'],
       working: body['working']
     }
     console.log(params)
